@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" Write a function called filter_datum that returns the
+"""Write a function called filter_datum that returns the
 log message obfuscated"""
 from typing import List
 import re
