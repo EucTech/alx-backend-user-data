@@ -10,6 +10,7 @@ import mysql.connector
 
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
 
+
 class RedactingFormatter(logging.Formatter):
     """ Redacting Formatter class
         """
@@ -31,7 +32,7 @@ class RedactingFormatter(logging.Formatter):
                             self.SEPARATOR)
 
 
-def filter_datum(fields: List[str], redaction: str,message: str,
+def filter_datum(fields: List[str], redaction: str, message: str,
                  separator: str) -> str:
     """Write a function called filter_datum that returns the
     log message obfuscated"""
@@ -68,9 +69,8 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
                                    database=db_name)
 
 
-
 def main():
-    """ main function """
+    """This the main function"""
     conn = get_db()
     cursor = db.cursor()
     cursor.execute("SELECT * from users")
