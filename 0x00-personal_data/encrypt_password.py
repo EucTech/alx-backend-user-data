@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Implement a hash_password function that expects one string argument
+"""implement a hash_password function that expects one string argument
 name password and returns a salted, hashed password, which is a byte stringd"""
 
 import logging
