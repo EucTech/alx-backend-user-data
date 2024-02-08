@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-""" Personal data project """
+""" Write a function called filter_datum that returns the
+log message obfuscated"""
 from typing import List
 import re
 import logging
@@ -8,18 +9,6 @@ import mysql.connector
 
 
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
-
-
-def filter_datum(fields: List[str],
-                 redaction: str,
-                 message: str,
-                 separator: str) -> str:
-    """ returns the log message obfuscated """
-    for i in fields:
-        message = re.sub(fr'{i}=.+?{separator}',
-                         f'{i}={redaction}{separator}', message)
-    return message
-
 
 class RedactingFormatter(logging.Formatter):
     """ Redacting Formatter class
@@ -42,19 +31,33 @@ class RedactingFormatter(logging.Formatter):
                             self.SEPARATOR)
 
 
+def filter_datum(fields: List[str], redaction: str,message: str,
+                 separator: str) -> str:
+    """Write a function called filter_datum that returns the
+    log message obfuscated"""
+    for k in fields:
+        message = re.sub(fr'{k}=.+?{separator}',
+                         f'{k}={redaction}{separator}', message)
+    return message
+
+
 def get_logger() -> logging.Logger:
-    """ return logging.Logger object """
-    obj = logging.getLogger("user_data")
-    obj.setLevel(logging.INFO)
-    obj.propagate = False
-    handler = logging.StreamHandler()
-    handler.setFormatter(RedactingFormatter(list(PII_FIELDS)))
-    obj.addHandler(handler)
-    return obj
+    """Implement a get_logger function that takes no
+    arguments and returns a logging.Logger object."""
+    val = logging.getLogger("user_data")
+    val.setLevel(logging.INFO)
+    val.propagate = False
+    action = logging.StreamHandler()
+    action.setFormatter(RedactingFormatter(list(PII_FIELDS)))
+    val.addHandler(action)
+    return val
 
 
 def get_db() -> mysql.connector.connection.MySQLConnection:
-    """ return the connector of the database """
+    """Database credentials should NEVER be stored in code or
+    checked into version control. One secure option is to
+    store them as environment variable on the application server.
+    """
     user_name = os.getenv('PERSONAL_DATA_DB_USERNAME')
     password = os.getenv('PERSONAL_DATA_DB_PASSWORD', '')
     host = os.getenv('PERSONAL_DATA_DB_HOST')
@@ -63,6 +66,7 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
                                    password=password,
                                    host=host,
                                    database=db_name)
+
 
 
 def main():
