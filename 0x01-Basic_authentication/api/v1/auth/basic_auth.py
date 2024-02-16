@@ -30,7 +30,6 @@ class BasicAuth(Auth):
             parts = authorization_header.split(' ')
             return parts[1]
 
-
     def decode_base64_authorization_header(self,
                                            base64_authorization_header:
                                                str) -> str:
@@ -44,7 +43,6 @@ class BasicAuth(Auth):
             return decoded.decode('utf-8')
         except Exception as e:
             return None
-
 
     def user_object_from_credentials(self, user_email: str,
                                      user_pwd: str) -> TypeVar('User'):
