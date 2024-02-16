@@ -44,6 +44,7 @@ def before_check():
         abort(403)
     request.current_user = current_user
 
+
 @app.errorhandler(404)
 def not_found(error) -> str:
     """ Not found handler
