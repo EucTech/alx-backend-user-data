@@ -1,0 +1,31 @@
+#!/usr/bin/env python3
+""" to manage the Basic API authentication.
+"""
+
+import base64
+import email
+from .auth import Auth
+from models.base import Base
+from models.user import User
+from typing import TypeVar
+
+
+class BasicAuth(Auth):
+    """ basic authentication class"""
+    def __init__(self) -> None:
+        """instant"""
+        super().__init__()
+
+    def extract_base64_authorization_header(self,
+                                            authorization_header: str) -> str:
+        """extract based64 function"""
+        if authorization_header is None:
+            return None
+        if not isinstance(authorization_header, str):
+            return None
+
+        if authorization_header.startswith('Basic ') is False:
+            return None
+        else:
+            parts = authorization_header.split(' ')
+            return parts[1]
