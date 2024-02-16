@@ -34,16 +34,16 @@ class BasicAuth(Auth):
     def decode_base64_authorization_header(self,
                                            base64_authorization_header:
                                                str) -> str:
-    """ decode base64 function """
-    if base64_authorization_header is None:
-        return None
-    if not isinstance(base64_authorization_header, str):
-        return None
-    try:
-        decoded = base64.b64decode(base64_authorization_header)
-        return decoded.decode('utf-8')
-    except Exception as e:
-        return None
+        """ decode base64 function """
+        if base64_authorization_header is None:
+            return None
+        if not isinstance(base64_authorization_header, str):
+            return None
+        try:
+            decoded = base64.b64decode(base64_authorization_header)
+            return decoded.decode('utf-8')
+        except Exception as e:
+            return None
 
 
     def user_object_from_credentials(self, user_email: str,
