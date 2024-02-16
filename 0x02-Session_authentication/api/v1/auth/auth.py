@@ -36,3 +36,10 @@ class Auth:
     def current_user(self, request=None) -> User:
         """current user function"""
         return None
+
+    def session_cookie(self, request=None):
+        """session cookies function"""
+        if request is None:
+            return None
+        session_name = os.getenv('SESSION_NAME')
+        return request.cookies.get(session_name)
